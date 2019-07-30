@@ -22,7 +22,7 @@ class NewsListViewModel : ViewModel() {
                 .setInitialLoadSizeHint(pageSize * 2)
                 .setEnablePlaceholders(false)
                 .build()
-        newsList = LivePagedListBuilder<Int, News>(newsDataSourceFactory, config).build()
+        newsList = LivePagedListBuilder(newsDataSourceFactory, config).build()
     }
 
 

@@ -1,12 +1,11 @@
 package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_news_list.*
 
 class NewsListActivity : AppCompatActivity() {
