@@ -3,20 +3,21 @@ package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 
 class NewsListAdapter(private val retry: () -> Unit)
-    : PagedListAdapter<News, androidx.recyclerview.widget.RecyclerView.ViewHolder>(NewsDiffCallback) {
+    : PagedListAdapter<News, RecyclerView.ViewHolder>(NewsDiffCallback) {
 
     private val DATA_VIEW_TYPE = 1
     private val FOOTER_VIEW_TYPE = 2
 
     private var state = State.LOADING
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == DATA_VIEW_TYPE) NewsViewHolder.create(parent) else ListFooterViewHolder.create(retry, parent)
     }
 
-    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == DATA_VIEW_TYPE)
             (holder as NewsViewHolder).bind(getItem(position))
         else (holder as ListFooterViewHolder).bind(state)

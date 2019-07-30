@@ -3,10 +3,11 @@ package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_news.view.*
 
-class NewsViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(news: News?) {
         if (news != null) {

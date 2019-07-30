@@ -2,10 +2,11 @@ package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide
 
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_news_list.*
 
 class NewsListActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class NewsListActivity : AppCompatActivity() {
 
     private fun initAdapter() {
         newsListAdapter = NewsListAdapter { viewModel.retry() }
-        recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+        recycler_view.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recycler_view.adapter = newsListAdapter
         viewModel.newsList.observe(this, Observer {
             newsListAdapter.submitList(it)
