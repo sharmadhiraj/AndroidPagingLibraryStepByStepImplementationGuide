@@ -1,7 +1,9 @@
-package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide
+package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State.DONE
+import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State.ERROR
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -23,14 +25,14 @@ class NewsDataSource(
                 networkService.getNews(1, params.requestedLoadSize)
                         .subscribe(
                                 { response ->
-                                    updateState(State.DONE)
+                                    updateState(DONE)
                                     callback.onResult(response.news,
                                             null,
                                             2
                                     )
                                 },
                                 {
-                                    updateState(State.ERROR)
+                                    updateState(ERROR)
                                     setRetry(Action { loadInitial(params, callback) })
                                 }
                         )
@@ -43,13 +45,13 @@ class NewsDataSource(
                 networkService.getNews(params.key, params.requestedLoadSize)
                         .subscribe(
                                 { response ->
-                                    updateState(State.DONE)
+                                    updateState(DONE)
                                     callback.onResult(response.news,
                                             params.key + 1
                                     )
                                 },
                                 {
-                                    updateState(State.ERROR)
+                                    updateState(ERROR)
                                     setRetry(Action { loadAfter(params, callback) })
                                 }
                         )

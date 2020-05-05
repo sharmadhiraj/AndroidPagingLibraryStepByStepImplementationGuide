@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Android Paging Library Step By Step Implementation Guide</string>
+    <string name="error_message">Error !! Tap to retry.</string>
 </resources>
