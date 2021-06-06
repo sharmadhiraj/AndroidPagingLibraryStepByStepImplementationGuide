@@ -22,7 +22,7 @@ class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     companion object {
         fun create(parent: ViewGroup): NewsViewHolder {
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_news, parent, false)
+                .inflate(R.layout.item_news, parent, false)
             return NewsViewHolder(view)
         }
     }

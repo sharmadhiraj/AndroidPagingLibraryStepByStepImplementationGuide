@@ -14,22 +14,22 @@ class NewsListViewModel : ViewModel() {
     var newsList: LiveData<PagedList<News>>
     private val compositeDisposable = CompositeDisposable()
     private val pageSize = 5
-    private val newsDataSourceFactory: NewsDataSourceFactory
+    private val newsDataSourceFactory: NewsDataSourceFactory =
+        NewsDataSourceFactory(compositeDisposable, networkService)
 
     init {
-        newsDataSourceFactory = NewsDataSourceFactory(compositeDisposable, networkService)
         val config = PagedList.Config.Builder()
-                .setPageSize(pageSize)
-                .setInitialLoadSizeHint(pageSize * 2)
-                .setEnablePlaceholders(false)
-                .build()
+            .setPageSize(pageSize)
+            .setInitialLoadSizeHint(pageSize * 2)
+            .setEnablePlaceholders(false)
+            .build()
         newsList = LivePagedListBuilder(newsDataSourceFactory, config).build()
     }
 
 
     fun getState(): LiveData<State> = Transformations.switchMap(
-            newsDataSourceFactory.newsDataSourceLiveData,
-            NewsDataSource::state
+        newsDataSourceFactory.newsDataSourceLiveData,
+        NewsDataSource::state
     )
 
     fun retry() {

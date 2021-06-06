@@ -11,17 +11,17 @@ interface NetworkService {
 
     @GET("everything?q=sports&apiKey=aa67d8d98c8e4ad1b4f16dbd5f3be348")
     fun getNews(
-            @Query("page") page: Int,
-            @Query("pageSize") pageSize: Int
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
     ): Single<Response>
 
     companion object {
         fun getService(): NetworkService {
             val retrofit = Retrofit.Builder()
-                    .baseUrl("https://newsapi.org/v2/")
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
+                .baseUrl("https://newsapi.org/v2/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
             return retrofit.create(NetworkService::class.java)
         }
     }

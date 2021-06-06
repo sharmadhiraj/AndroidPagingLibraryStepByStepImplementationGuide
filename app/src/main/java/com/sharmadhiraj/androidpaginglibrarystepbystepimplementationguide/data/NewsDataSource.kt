@@ -11,50 +11,55 @@ import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 
 class NewsDataSource(
-        private val networkService: NetworkService,
-        private val compositeDisposable: CompositeDisposable)
-    : PageKeyedDataSource<Int, News>() {
+    private val networkService: NetworkService,
+    private val compositeDisposable: CompositeDisposable
+) : PageKeyedDataSource<Int, News>() {
 
     var state: MutableLiveData<State> = MutableLiveData()
     private var retryCompletable: Completable? = null
 
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, News>) {
+    override fun loadInitial(
+        params: LoadInitialParams<Int>,
+        callback: LoadInitialCallback<Int, News>
+    ) {
         updateState(State.LOADING)
         compositeDisposable.add(
-                networkService.getNews(1, params.requestedLoadSize)
-                        .subscribe(
-                                { response ->
-                                    updateState(DONE)
-                                    callback.onResult(response.news,
-                                            null,
-                                            2
-                                    )
-                                },
-                                {
-                                    updateState(ERROR)
-                                    setRetry(Action { loadInitial(params, callback) })
-                                }
+            networkService.getNews(1, params.requestedLoadSize)
+                .subscribe(
+                    { response ->
+                        updateState(DONE)
+                        callback.onResult(
+                            response.news,
+                            null,
+                            2
                         )
+                    },
+                    {
+                        updateState(ERROR)
+                        setRetry(Action { loadInitial(params, callback) })
+                    }
+                )
         )
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, News>) {
         updateState(State.LOADING)
         compositeDisposable.add(
-                networkService.getNews(params.key, params.requestedLoadSize)
-                        .subscribe(
-                                { response ->
-                                    updateState(DONE)
-                                    callback.onResult(response.news,
-                                            params.key + 1
-                                    )
-                                },
-                                {
-                                    updateState(ERROR)
-                                    setRetry(Action { loadAfter(params, callback) })
-                                }
+            networkService.getNews(params.key, params.requestedLoadSize)
+                .subscribe(
+                    { response ->
+                        updateState(DONE)
+                        callback.onResult(
+                            response.news,
+                            params.key + 1
                         )
+                    },
+                    {
+                        updateState(ERROR)
+                        setRetry(Action { loadAfter(params, callback) })
+                    }
+                )
         )
     }
 
@@ -67,10 +72,12 @@ class NewsDataSource(
 
     fun retry() {
         if (retryCompletable != null) {
-            compositeDisposable.add(retryCompletable!!
+            compositeDisposable.add(
+                retryCompletable!!
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe())
+                    .subscribe()
+            )
         }
     }
 
