@@ -10,7 +10,8 @@ import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.R
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State.ERROR
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State.LOADING
-import kotlinx.android.synthetic.main.item_list_footer.view.*
+import kotlinx.android.synthetic.main.item_list_footer.view.progress_bar
+import kotlinx.android.synthetic.main.item_list_footer.view.txt_error
 
 class ListFooterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

@@ -3,10 +3,17 @@ package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.viewM
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
+import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.NetworkService
+import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.News
+import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.NewsDataSource
+import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.NewsDataSourceFactory
+import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.Dispatchers
 
 class NewsListViewModel : ViewModel() {
 
@@ -23,7 +30,17 @@ class NewsListViewModel : ViewModel() {
             .setInitialLoadSizeHint(pageSize * 2)
             .setEnablePlaceholders(false)
             .build()
-        newsList = LivePagedListBuilder(newsDataSourceFactory, config).build()
+        newsList = Pager<Int, News>(
+            PagingConfig(
+                config.pageSize,
+                config.prefetchDistance,
+                config.enablePlaceholders,
+                config.initialLoadSizeHint,
+                config.maxSize
+            ),
+            this.initialLoadKey,
+            newsDataSourceFactory.asPagingSourceFactory(Dispatchers.IO)
+        ).liveData.build()
     }
 
 

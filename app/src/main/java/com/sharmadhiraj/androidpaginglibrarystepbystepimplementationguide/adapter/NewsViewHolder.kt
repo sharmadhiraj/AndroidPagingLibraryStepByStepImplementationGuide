@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.R
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.News
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_news.view.*
+import kotlinx.android.synthetic.main.item_news.view.img_news_banner
+import kotlinx.android.synthetic.main.item_news.view.txt_news_name
 
 class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
