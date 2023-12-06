@@ -1,14 +1,14 @@
 package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.adapter
 
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.News
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State
 
-class NewsListAdapter(private val retry: () -> Unit) :
-    PagingDataAdapter<News, RecyclerView.ViewHolder>(NewsDiffCallback) {
+class NewsListAdapter(private val retry: () -> Unit)
+    : PagedListAdapter<News, RecyclerView.ViewHolder>(NewsDiffCallback) {
 
     private val DATA_VIEW_TYPE = 1
     private val FOOTER_VIEW_TYPE = 2

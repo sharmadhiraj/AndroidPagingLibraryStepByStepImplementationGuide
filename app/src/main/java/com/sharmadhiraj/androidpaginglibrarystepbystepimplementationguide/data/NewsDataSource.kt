@@ -1,7 +1,7 @@
 package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data
 
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.PagingSource
+import androidx.paging.PageKeyedDataSource
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State.DONE
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State.ERROR
 import io.reactivex.Completable
@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 class NewsDataSource(
     private val networkService: NetworkService,
     private val compositeDisposable: CompositeDisposable
-) : PagingSource<Int, News>() {
+) : PageKeyedDataSource<Int, News>() {
 
     var state: MutableLiveData<State> = MutableLiveData()
     private var retryCompletable: Completable? = null
