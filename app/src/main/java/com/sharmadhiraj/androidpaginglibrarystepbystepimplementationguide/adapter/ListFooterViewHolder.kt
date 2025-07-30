@@ -2,30 +2,28 @@ package com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.adapt
 
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.R
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State.ERROR
 import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.data.State.LOADING
-import kotlinx.android.synthetic.main.item_list_footer.view.progress_bar
-import kotlinx.android.synthetic.main.item_list_footer.view.txt_error
+import com.sharmadhiraj.androidpaginglibrarystepbystepimplementationguide.databinding.ItemListFooterBinding
 
-class ListFooterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class ListFooterViewHolder(
+    private val binding: ItemListFooterBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(status: State?) {
-        itemView.progress_bar.visibility = if (status == LOADING) VISIBLE else INVISIBLE
-        itemView.txt_error.visibility = if (status == ERROR) VISIBLE else INVISIBLE
+        binding.progressBar.visibility = if (status == LOADING) View.VISIBLE else View.INVISIBLE
+        binding.txtError.visibility = if (status == ERROR) View.VISIBLE else View.INVISIBLE
     }
 
     companion object {
         fun create(retry: () -> Unit, parent: ViewGroup): ListFooterViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_list_footer, parent, false)
-            view.txt_error.setOnClickListener { retry() }
-            return ListFooterViewHolder(view)
+            val inflater = LayoutInflater.from(parent.context)
+            val binding = ItemListFooterBinding.inflate(inflater, parent, false)
+            binding.txtError.setOnClickListener { retry() }
+            return ListFooterViewHolder(binding)
         }
     }
 }

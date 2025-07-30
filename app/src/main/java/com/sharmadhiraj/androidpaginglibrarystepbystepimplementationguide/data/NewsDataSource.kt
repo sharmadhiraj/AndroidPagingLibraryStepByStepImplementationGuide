@@ -37,7 +37,7 @@ class NewsDataSource(
                     },
                     {
                         updateState(ERROR)
-                        setRetry(Action { loadInitial(params, callback) })
+                        setRetry { loadInitial(params, callback) }
                     }
                 )
         )
@@ -57,7 +57,7 @@ class NewsDataSource(
                     },
                     {
                         updateState(ERROR)
-                        setRetry(Action { loadAfter(params, callback) })
+                        setRetry { loadAfter(params, callback) }
                     }
                 )
         )
