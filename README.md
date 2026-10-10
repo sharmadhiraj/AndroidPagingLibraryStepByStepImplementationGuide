@@ -9,6 +9,8 @@ Originally written as a companion to the article
 The code has since moved to Paging 3 and coroutines, so it no longer matches the article's Paging
 2 / RxJava code.
 
+<p align="center"><img src="docs/demo.gif" alt="App demo: launch and endless scrolling" width="270"></p>
+
 ## Features
 
 - Infinite scrolling with page loading, a footer spinner and a footer retry
@@ -30,6 +32,18 @@ domain        News model
 di            AppContainer (manual dependency injection)
 ui/news       Activity, ViewModel, PagingDataAdapter, load state footer
 ```
+
+## Modifying items
+
+`PagingDataAdapter` has no add, update or remove methods. Items come from `PagingData`, which is
+immutable, so change the data instead:
+
+- Transform the stream in the ViewModel with `PagingData.map`, `filter` or `insertSeparators`. Keep
+  the edits (for example removed ids) in a `StateFlow` and combine it with the `Pager` flow, so the
+  list is rebuilt when they change.
+- For persistent edits, use a single source of truth such as Room with a `RemoteMediator`. Write the
+  change to the database and the `PagingSource` invalidates and reloads on its own.
+- Call `adapter.refresh()` to reload the list from the first page.
 
 ## Run
 
