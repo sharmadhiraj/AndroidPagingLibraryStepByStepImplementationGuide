@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">Android Paging Library Step By Step Implementation Guide</string>
-    <string name="error_message">Error !! Tap to retry.</string>
+    <string name="app_name">News Feed</string>
+    <string name="error_message">Couldn\'t load news. Check your connection and try again.</string>
+    <string name="empty_message">No news found.</string>
+    <string name="retry">Retry</string>
+    <string name="refresh_error_footer">Couldn\'t load more</string>
 </resources>
